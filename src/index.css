@@ -64,39 +64,86 @@ body {
   color-scheme: dark;
 }
 
-/* Ensure all components inherit dark mode properly */
+/* Base Light Mode: Light Reddish-White / Rose Porcelain */
+body {
+  background-color: #FFF5F5;
+  color: #1C1917;
+}
+
+/* Base Dark Mode: Deep Midnight Bluish-Black / Obsidian Navy */
+.dark body,
+.dark {
+  background-color: #060B14;
+  color: #F8FAFC;
+}
+
+/* Ensure all components inherit dark mode properly with dark bluish-black surfaces */
 .dark * {
-  border-color: rgb(55 65 81) !important;
+  border-color: #1E2B45 !important;
 }
 
+/* In Dark Mode: Convert pure white cards to deep sapphire/slate containers */
 .dark .bg-white {
-  @apply bg-gray-800 !important;
+  background-color: #0D1527 !important;
 }
 
+/* In Dark Mode: Deepen standard gray backgrounds to dark bluish-black */
+.dark .bg-gray-900,
+.dark .bg-gray-950 {
+  background-color: #060B14 !important;
+}
+
+.dark .bg-gray-800 {
+  background-color: #0D1527 !important;
+}
+
+.dark .bg-gray-700 {
+  background-color: #131E35 !important;
+}
+
+.dark .bg-gray-600 {
+  background-color: #1A2846 !important;
+}
+
+.dark .bg-gray-50,
+.dark .bg-gray-100 {
+  background-color: #111A2E !important;
+}
+
+/* In Dark Mode: Text colors with crisp contrast */
 .dark .text-gray-900 {
-  @apply text-white !important;
+  color: #F8FAFC !important;
+}
+
+.dark .text-gray-800 {
+  color: #F1F5F9 !important;
 }
 
 .dark .text-gray-700 {
-  @apply text-gray-300 !important;
+  color: #CBD5E1 !important;
 }
 
 .dark .text-gray-600 {
-  @apply text-gray-400 !important;
+  color: #94A3B8 !important;
 }
 
-.dark .border-gray-200 {
-  @apply border-gray-700 !important;
+.dark .text-gray-500 {
+  color: #64748B !important;
 }
 
-.dark .border-gray-300 {
-  @apply border-gray-600 !important;
+/* In Dark Mode: Borders styled to bluish-black subtle outline */
+.dark .border-gray-200,
+.dark .border-gray-300,
+.dark .border-gray-700 {
+  border-color: #1E2B45 !important;
 }
 
-.dark .bg-gray-50 {
-  @apply bg-gray-700 !important;
+/* In Light Mode: Soft reddish-white tint for gray surfaces */
+body:not(.dark) .bg-gray-50 {
+  background-color: #FFF5F5 !important;
 }
 
-.dark .bg-gray-100 {
-  @apply bg-gray-600 !important;
+body:not(.dark) .border-gray-100,
+body:not(.dark) .border-gray-200 {
+  border-color: #FFE4E6 !important;
 }
