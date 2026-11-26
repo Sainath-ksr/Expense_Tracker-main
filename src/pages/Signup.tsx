@@ -67,10 +67,24 @@ const Signup: React.FC = () => {
         navigate('/dashboard', { replace: true });
       }, 100);
     } catch (err: any) {
-      const errorMsg = err.response?.data?.password?.[0] ||
-                      err.response?.data?.email?.[0] ||
-                      err.response?.data?.username?.[0] ||
-                      'Registration failed. Please try again.';
+      const resData = err.response?.data;
+      let errorMsg = 'Registration failed. Please try again.';
+      if (typeof resData === 'string') {
+        errorMsg = resData;
+      } else if (resData && typeof resData === 'object') {
+        const firstVal = Object.values(resData)[0];
+        if (Array.isArray(firstVal)) {
+          errorMsg = firstVal[0];
+        } else if (typeof firstVal === 'string') {
+          errorMsg = firstVal;
+        } else if (resData.message) {
+          errorMsg = resData.message;
+        } else if (resData.detail) {
+          errorMsg = resData.detail;
+        }
+      } else if (err.message) {
+        errorMsg = err.message;
+      }
       setError(errorMsg);
     } finally {
       setIsLoading(false);
