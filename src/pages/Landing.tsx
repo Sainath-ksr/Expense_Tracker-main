@@ -413,7 +413,7 @@ const Landing: React.FC = () => {
               <p className="text-xs sm:text-sm text-gray-700 dark:text-gray-300 whitespace-nowrap">
                 <strong className="text-blue-600 dark:text-blue-400">Email:</strong> demo@example.com 
                 <span className="mx-2 sm:mx-3 text-gray-400">|</span>
-                <strong className="text-blue-600 dark:text-blue-400">Password:</strong> demo123
+                <strong className="text-blue-600 dark:text-blue-400">Password:</strong> demo@123
               </p>
             </div>
           </div>

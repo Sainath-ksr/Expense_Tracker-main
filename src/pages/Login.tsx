@@ -40,12 +40,12 @@ const Login: React.FC = () => {
 
   const handleDemoLogin = async () => {
     setEmail("demo@example.com");
-    setPassword("demo123");
+    setPassword("demo@123");
     setIsLoading(true);
     setError("");
 
     try {
-      await login("demo@example.com", "demo123");
+      await login("demo@example.com", "demo@123");
     } catch {
       setError("Demo login failed");
     } finally {
@@ -148,7 +148,7 @@ const Login: React.FC = () => {
           <div className="text-center">
             <h3 className="text-sm font-semibold text-blue-900 mb-2">Demo Account:</h3>
             <p className="text-sm text-blue-800 mb-3">
-              Email: demo@example.com | Password: demo123
+              Email: demo@example.com | Password: demo@123
             </p>
             <button
               onClick={handleDemoLogin}
