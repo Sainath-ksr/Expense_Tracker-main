@@ -87,7 +87,20 @@ DATABASE_URL = config('DATABASE_URL', default=None)
 if DATABASE_URL:
     try:
         import dj_database_url
-        DATABASES['default'] = dj_database_url.parse(DATABASE_URL)
+        # If DATABASE_URL contains ?ssl-mode=REQUIRED, mysqlclient doesn't accept 'ssl-mode' keyword.
+        # Clean up ssl-mode query param before parsing or clean parsed options.
+        parsed_db = dj_database_url.parse(DATABASE_URL)
+        if 'OPTIONS' in parsed_db:
+            # Remove unsupported ssl-mode argument for mysqlclient
+            parsed_db['OPTIONS'].pop('ssl-mode', None)
+            parsed_db['OPTIONS'].pop('ssl_mode', None)
+        # For Aiven MySQL, SSL is required; passing ssl={'ca': ...} or empty ssl dict enables SSL in mysqlclient
+        if 'mysql' in parsed_db.get('ENGINE', ''):
+            parsed_db.setdefault('OPTIONS', {})
+            parsed_db['OPTIONS']['ssl'] = {'ssl_mode': 'REQUIRED'} if 'ssl' not in parsed_db['OPTIONS'] else parsed_db['OPTIONS']['ssl']
+            # If ssl dictionary is needed: mysqlclient accepts ssl={'check_hostname': False} or similar, but basic SSL works with ssl={'ca': None} or {}
+            parsed_db['OPTIONS']['ssl'] = {}
+        DATABASES['default'] = parsed_db
     except ImportError:
         pass
 
